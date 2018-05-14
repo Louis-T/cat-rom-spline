@@ -44,6 +44,10 @@ var catmullRomSplineSegment = function(p0, p1, p2, p3, samples, knot) {
     points.push(interpolatePoint(p0, p1, p2, p3, t0, t1, t2, t3, t));
   }
 
+  while (points.length > samples) {
+    points.splice(-1);
+  }
+
   return points;
 };
 
@@ -57,6 +61,15 @@ var catmullRomSpline = function(controlPoints, options) {
   options = options || {};
   var knot = options.knot || 0.5;
   var samples = options.samples;
+  var totalSamples = options.totalSamples;
+  if (totalSamples) {
+    if (totalSamples < controlPoints.length) {
+      throw "totalSamples must be greather than the number of control points";
+    }
+    if (samples) {
+      console.warn("The totalSamples option will take precedence over the samples option");
+    }
+  }
 
   controlPoints.forEach(function(point, i) {
     offset = 1;
@@ -79,6 +92,10 @@ var catmullRomSpline = function(controlPoints, options) {
 
     if (!(p1 && p2 && p3)) {
       return;
+    }
+
+    if(totalSamples) {
+      samples = Math.max(1, Math.round((totalSamples - points.length) / (controlPoints.length - i - 3)) - 1);
     }
 
     points.push(p1);

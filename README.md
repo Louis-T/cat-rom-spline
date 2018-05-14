@@ -24,9 +24,12 @@ var points = [p0, p1, p2, p3];
 
 // There are optional configurations that you can make but they aren't required
 // If 'samples' is not passed in the interpolation will sample a sensible amount
-// of points based on how far away control points are
+// of points based on how far away control points are.
+// If 'totalSamples' is passed, the total number of points returned will be equal
+// to the value you entered ('totalSamples' takes precedence over 'samples').
 var options = {
   samples: 50,
+  totalSamples: 100,
   knot: 0.5 // Default is 0.5, Ranges from 0 - 1, 1 being stiffer curves.
 };
 
