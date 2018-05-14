@@ -95,11 +95,13 @@ var catmullRomSpline = function(controlPoints, options) {
     }
 
     if(totalSamples) {
-      samples = Math.max(1, Math.round((totalSamples - points.length) / (controlPoints.length - i - 3)) - 1);
+      samples = Math.max(0, Math.round((totalSamples - points.length) / (controlPoints.length - i - 3)) - 1);
     }
 
     points.push(p1);
-    points = points.concat(catmullRomSplineSegment(p0, p1, p2, p3, samples, knot));
+    if (samples !== 0) {
+      points = points.concat(catmullRomSplineSegment(p0, p1, p2, p3, samples, knot));
+    }
     if (!controlPoints[offset]) {
       points.push(p2);
     }
