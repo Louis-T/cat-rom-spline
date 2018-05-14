@@ -7,7 +7,7 @@
     "email": "nschaubeck@gmail.com",
     "url": "northofbrooklyn.nyc"
   },
-  "repository": "Louis-T/cat-rom-spline",
+  "repository": "nschaubeck/cat-rom-spline",
   "license": "MIT",
   "files": [
     "index.js"
